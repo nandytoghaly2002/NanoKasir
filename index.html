@@ -8,557 +8,12 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { display: flex; height: 100vh; background: #f4f6f9; color: #333; }
         
-        /* Sidebar Samping */
         .sidebar { width: 220px; background: #2c3e50; color: white; display: flex; flex-direction: column; padding: 20px 0; }
-        .sidebar h2 { font-size: 1.2rem; padding: 0 20px 20px 20px; border-bottom: 1px solid #34495e; text-align: center; color: #3498db; }
-        .nav-btn { background: none; border: none; color: #bdc3c7; padding: 15px 20px; text-align: left; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
-        .nav-btn:hover, .nav-btn.active { background: #34495e; color: white; border-left: 4px solid #3498db; }
-
-        /* Konten Utama */
-        .content-area { flex: 2; display: flex; flex-direction: column; overflow: hidden; }
-        .page { display: none; flex: 1; padding: 20px; overflow-y: auto; }
-        .page.active { display: block; }
-
-        /* Kasir Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; }
-        .product-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .product-card:hover { border-color: #007bff; background: #f0f8ff; }
-        .product-card h3 { font-size: 1rem; margin-bottom: 8px; }
-        .product-card p { color: #007bff; font-weight: bold; font-size: 0.9rem; }
-        .product-card small { color: #666; font-size: 0.75rem; }
-
-        /* Keranjang */
-        .cart-section { flex: 1.2; background: #fff; border-left: 1px solid #ddd; display: flex; flex-direction: column; padding: 20px; }
-        .cart-items { flex: 1; overflow-y: auto; border-bottom: 1px solid #eee; margin-bottom: 15px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.9rem; }
-        .cart-item button { padding: 2px 8px; background: #ddd; border: none; border-radius: 4px; cursor: pointer; }
+        .sidebar-brand { padding: 0 20px 20px 20px; border-bottom: 1px solid #34495e; text-align: center; }
+        .sidebar-brand img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; margin-bottom: 8px; background: #fff; padding: 4px; display: none; }
+        .sidebar-brand h2 { font-size: 1.1rem; color: #3498db; word-break: break-word; }
         
-        .total-box { font-size: 1.2rem; font-weight: bold; display: flex; justify-content: space-between; margin-bottom: 15px; }
-        
-        .btn-action { width: 100%; padding: 12px; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-bottom: 8px; }
-        .btn-printer { background: #17a2b8; }
-        .btn-printer:hover { background: #138496; }
-        .btn-pay { background: #28a745; }
-        .btn-pay:hover { background: #218838; }
-        
-        #printerStatus { font-size: 0.85rem; color: #666; margin-bottom: 15px; text-align: center; }
-
-        /* Tabel & Form */
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-top: 10px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        th { background: #f8f9fa; color: #333; font-weight: bold; }
-
-        .form-box { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: bold; color: #555; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; }
-        .btn-save { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .btn-save:hover { background: #0056b3; }
-        .btn-danger { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-
-        /* Kartu Statistik Laba Rugi */
-        .stats-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
-        .stat-card h4 { font-size: 0.85rem; color: #666; margin-bottom: 8px; }
-        .stat-card p { font-size: 1.3rem; font-weight: bold; color: #2c3e50; }
-        .stat-card.profit p { color: #28a745; }
-
-        /* Modal */
-        .modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 20px; border-radius: 8px; width: 300px; text-align: center; }
-        .modal-content h3 { margin-bottom: 15px; }
-        .btn-method { width: 100%; padding: 10px; margin-bottom: 8px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .btn-cash { background: #ffc107; color: #333; }
-        .btn-qris { background: #007bff; color: white; }
-        .btn-debit { background: #6c757d; color: white; }
-        .btn-close { background: #dc3545; color: white; margin-top: 5px; }
-    </style>
-</head>
-<body>
-
-    <!-- Sidebar Menu Navigasi -->
-    <div class="sidebar">
-        <h2>Kasir Nano Lite</h2>
-        <button class="nav-btn active" onclick="switchPage('kasir', event)">Kasir Utama</button>
-        <button class="nav-btn" onclick="switchPage('produk', event)">Kelola Menu / Produk</button>
-        <button class="nav-btn" onclick="switchPage('laporan', event)">Laporan Penjualan</button>
-        <button class="nav-btn" onclick="switchPage('labarugi', event)">Laporan Laba / Rugi</button>
-    </div>
-
-    <!-- Halaman 1: Kasir -->
-    <div id="page-kasir" class="page active content-area" style="flex-direction: row; padding: 0;">
-        <div style="flex: 2; padding: 20px; overflow-y: auto;">
-            <h2 style="margin-bottom: 15px; font-size: 1.2rem; color: #444;">Daftar Menu Kasir Nano Lite</h2>
-            <div class="product-grid" id="productGrid"></div>
-        </div>
-
-        <div class="cart-section">
-            <h2 style="margin-bottom: 15px; font-size: 1.2rem; color: #444;">Keranjang Belanja</h2>
-            <div id="printerStatus">Status Printer: Belum Terhubung</div>
-            <button class="btn-action btn-printer" onclick="connectPrinter()">Sambungkan Printer Bluetooth</button>
-            
-            <div class="cart-items" id="cartItems">
-                <p style="color: #888; text-align: center; margin-top: 20px;">Keranjang masih kosong</p>
-            </div>
-            
-            <div class="total-box">
-                <span>Total:</span>
-                <span id="totalPrice">Rp 0</span>
-            </div>
-            
-            <button class="btn-action btn-pay" onclick="bukaModalPembayaran()">Bayar & Cetak Struk</button>
-        </div>
-    </div>
-
-    <!-- Halaman 2: Kelola Menu / Produk -->
-    <div id="page-produk" class="page content-area" style="padding: 25px;">
-        <h2 style="margin-bottom: 15px; color: #333;">Kelola Menu & Harga Produk</h2>
-        
-        <div class="form-box">
-            <h3 id="formTitle" style="margin-bottom: 10px; font-size: 1rem; color: #007bff;">Tambah Produk Baru</h3>
-            <input type="hidden" id="editIndex" value="">
-            <div class="form-group">
-                <label>Nama Produk</label>
-                <input type="text" id="inputName" placeholder="Contoh: Es Jeruk">
-            </div>
-            <div class="form-group">
-                <label>Harga Jual (Rp)</label>
-                <input type="number" id="inputPrice" placeholder="Contoh: 7000">
-            </div>
-            <div class="form-group">
-                <label>Estimasi Modal / HPP (Rp)</label>
-                <input type="number" id="inputCost" placeholder="Contoh: 4000">
-            </div>
-            <button class="btn-save" onclick="saveProduct()">Simpan Produk</button>
-            <button id="btnCancelEdit" style="display:none; background:#6c757d; color:white; border:none; padding:10px 15px; border-radius:5px; font-weight:bold; cursor:pointer; margin-left:5px;" onclick="resetForm()">Batal</button>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Nama Produk</th>
-                    <th>Harga Jual</th>
-                    <th>Modal (HPP)</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="manageProductTable">
-                <!-- Data Produk Terisi Otomatis -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Halaman 3: Laporan Penjualan -->
-    <div id="page-laporan" class="page content-area" style="padding: 25px;">
-        <h2 style="margin-bottom: 15px; color: #333;">Riwayat Laporan Penjualan</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Waktu</th>
-                    <th>Detail Item</th>
-                    <th>Metode</th>
-                    <th>Total Omzet</th>
-                </tr>
-            </thead>
-            <tbody id="salesTableBody">
-                <tr><td colspan="4" style="text-align: center; color: #888;">Belum ada transaksi tercatat.</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Halaman 4: Laporan Laba Rugi -->
-    <div id="page-labarugi" class="page content-area" style="padding: 25px;">
-        <h2 style="margin-bottom: 15px; color: #333;">Ringkasan Laba / Rugi</h2>
-        
-        <div class="stats-container">
-            <div class="stat-card">
-                <h4>Total Omzet Penjualan</h4>
-                <p id="statOmzet">Rp 0</p>
-            </div>
-            <div class="stat-card">
-                <h4>Total Estimasi Modal (HPP)</h4>
-                <p id="statHpp">Rp 0</p>
-            </div>
-            <div class="stat-card profit">
-                <h4>Keuntungan Bersih (Laba)</h4>
-                <p id="statLaba">Rp 0</p>
-            </div>
-        </div>
-
-        <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: #444;">Rincian Profit per Produk Terjual</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nama Produk</th>
-                    <th>Terjual (Qty)</th>
-                    <th>Total Pendapatan</th>
-                    <th>Estimasi Laba Bersih</th>
-                </tr>
-            </thead>
-            <tbody id="profitTableBody">
-                <tr><td colspan="4" style="text-align: center; color: #888;">Belum ada data profit.</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Modal Pilih Pembayaran -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <h3>Pilih Metode Pembayaran</h3>
-            <button class="btn-method btn-cash" onclick="pilihMetode('Cash')">Cash / Tunai</button>
-            <button class="btn-method btn-qris" onclick="pilihMetode('QRIS')">QRIS</button>
-            <button class="btn-method btn-debit" onclick="pilihMetode('Debit')">Kartu Debit</button>
-            <button class="btn-method btn-close" onclick="tutupModal()">Batal</button>
-        </div>
-    </div>
-
-    <script>
-        let products = JSON.parse(localStorage.getItem('kasno_products')) || [
-            { id: 1, name: "Kopi Susu", price: 18000, cost: 10000 },
-            { id: 2, name: "Es Teh Manis", price: 5000, cost: 2000 },
-            { id: 3, name: "Nasi Gudeg", price: 25000, cost: 15000 },
-            { id: 4, name: "Ayam Goreng", price: 20000, cost: 12000 },
-            { id: 5, name: "Tempe Bacem", price: 3000, cost: 1500 }
-        ];
-
-        let cart = [];
-        let salesHistory = JSON.parse(localStorage.getItem('kasno_sales')) || [];
-        let bluetoothDevice = null;
-        let bluetoothCharacteristic = null;
-
-        function switchPage(pageId, event) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById('page-' + pageId).classList.add('active');
-            event.target.classList.add('active');
-
-            if (pageId === 'kasir') renderProducts();
-            if (pageId === 'produk') renderManageProductTable();
-            if (pageId === 'laporan') renderSalesTable();
-            if (pageId === 'labarugi') renderProfitReport();
-        }
-
-        function saveProduct() {
-            let id = document.getElementById('editIndex').value;
-            let name = document.getElementById('inputName').value.trim();
-            let price = parseInt(document.getElementById('inputPrice').value);
-            let cost = parseInt(document.getElementById('inputCost').value);
-
-            if (!name || isNaN(price) || isNaN(cost)) {
-                alert("Semua kolom harus diisi dengan benar!");
-                return;
-            }
-
-            if (id === "") {
-                let newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-                products.push({ id: newId, name, price, cost });
-            } else {
-                let index = products.findIndex(p => p.id == id);
-                if (index !== -1) {
-                    products[index].name = name;
-                    products[index].price = price;
-                    products[index].cost = cost;
-                }
-            }
-
-            localStorage.setItem('kasno_products', JSON.stringify(products));
-            resetForm();
-            renderManageProductTable();
-            alert("Produk berhasil disimpan!");
-        }
-
-        function editProduct(id) {
-            let p = products.find(prod => prod.id == id);
-            if (p) {
-                document.getElementById('editIndex').value = p.id;
-                document.getElementById('inputName').value = p.name;
-                document.getElementById('inputPrice').value = p.price;
-                document.getElementById('inputCost').value = p.cost;
-                document.getElementById('formTitle').innerText = "Edit Produk: " + p.name;
-                document.getElementById('btnCancelEdit').style.display = 'inline-block';
-            }
-        }
-
-        function deleteProduct(id) {
-            if (confirm("Yakin ingin menghapus produk ini?")) {
-                products = products.filter(p => p.id != id);
-                localStorage.setItem('kasno_products', JSON.stringify(products));
-                renderManageProductTable();
-            }
-        }
-
-        function resetForm() {
-            document.getElementById('editIndex').value = "";
-            document.getElementById('inputName').value = "";
-            document.getElementById('inputPrice').value = "";
-            document.getElementById('inputCost').value = "";
-            document.getElementById('formTitle').innerText = "Tambah Produk Baru";
-            document.getElementById('btnCancelEdit').style.display = 'none';
-        }
-
-        function renderManageProductTable() {
-            const tbody = document.getElementById('manageProductTable');
-            if (products.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #888;">Belum ada produk.</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = products.map(p => `
-                <tr>
-                    <td><strong>${p.name}</strong></td>
-                    <td>Rp ${p.price.toLocaleString('id-ID')}</td>
-                    <td>Rp ${p.cost.toLocaleString('id-ID')}</td>
-                    <td>
-                        <button class="btn-save" style="padding: 5px 10px; font-size: 0.8rem;" onclick="editProduct(${p.id})">Edit</button>
-                        <button class="btn-danger" onclick="deleteProduct(${p.id})">Hapus</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            if (products.length === 0) {
-                grid.innerHTML = `<p style="color: #888; grid-column: span 2;">Belum ada menu. Tambahkan lewat menu "Kelola Menu / Produk".</p>`;
-                return;
-            }
-            grid.innerHTML = products.map(p => `
-                <div class="product-card" onclick="addToCart(${p.id})">
-                    <h3>${p.name}</h3>
-                    <p>Rp ${p.price.toLocaleString('id-ID')}</p>
-                    <small>Modal: Rp ${p.cost.toLocaleString('id-ID')}</small>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty++;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-            renderCart();
-        }
-
-        function changeQty(id, delta) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== id);
-                }
-            }
-            renderCart();
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('totalPrice');
-
-            if (cart.length === 0) {
-                container.innerHTML = `<p style="color: #888; text-align: center; margin-top: 20px;">Keranjang masih kosong</p>`;
-                totalEl.innerText = `Rp 0`;
-                return;
-            }
-
-            let total = 0;
-            container.innerHTML = cart.map(item => {
-                total += item.price * item.qty;
-                return `
-                    <div class="cart-item">
-                        <div>
-                            <strong>${item.name}</strong><br>
-                            <small>Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</small>
-                        </div>
-                        <div>
-                            <button onclick="changeQty(${item.id}, -1)">-</button>
-                            <span style="margin: 0 5px;">${item.qty}</span>
-                            <button onclick="changeQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            totalEl.innerText = `Rp ${total.toLocaleString('id-ID')}`;
-        }
-
-        async function connectPrinter() {
-            try {
-                const statusEl = document.getElementById('printerStatus');
-                statusEl.innerText = "Mencari perangkat Bluetooth...";
-                
-                bluetoothDevice = await navigator.bluetooth.requestDevice({
-                    acceptAllDevices: true,
-                    optionalServices: ['000018f0-0000-1000-8000-00805f9b34fb']
-                });
-
-                const server = await bluetoothDevice.gatt.connect();
-                const service = await server.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb');
-                bluetoothCharacteristic = await service.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb');
-
-                statusEl.innerText = `Terhubung ke: ${bluetoothDevice.name}`;
-                alert("Printer berhasil terhubung!");
-            } catch (error) {
-                console.error(error);
-                document.getElementById('printerStatus').innerText = "Status Printer: Gagal Terhubung";
-                alert("Gagal menyambungkan printer.");
-            }
-        }
-
-        function bukaModalPembayaran() {
-            if (cart.length === 0) {
-                alert("Keranjang masih kosong!");
-                return;
-            }
-            document.getElementById('paymentModal').style.display = 'flex';
-        }
-
-        function tutupModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-
-        async function pilihMetode(metode) {
-            tutupModal();
-            let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let bayar = total;
-            let kembalian = 0;
-
-            if (metode === 'Cash') {
-                let inputBayar = prompt(`Total Belanja: Rp ${total.toLocaleString('id-ID')}\nMasukkan uang tunai:`);
-                if (inputBayar === null) return;
-                bayar = parseInt(inputBayar);
-                if (isNaN(bayar) || bayar < total) {
-                    alert("Uang pembayaran kurang atau tidak valid!");
-                    return;
-                }
-                kembalian = bayar - total;
-                alert(`Pembayaran Tunai Berhasil!\nKembalian: Rp ${kembalian.toLocaleString('id-ID')}`);
-            } else {
-                alert(`Pembayaran via ${metode} Berhasil Diproses!`);
-            }
-
-            const newTransaction = {
-                date: new Date().toLocaleString('id-ID'),
-                items: [...cart],
-                method: metode,
-                total: total
-            };
-            salesHistory.push(newTransaction);
-            localStorage.setItem('kasno_sales', JSON.stringify(salesHistory));
-
-            await printReceipt(total, bayar, kembalian, metode);
-            cart = [];
-            renderCart();
-        }
-
-        async function printReceipt(total, bayar, kembalian, metode) {
-            if (!bluetoothCharacteristic) return;
-
-            let encoder = new TextEncoder();
-            let commands = '\x1B\x40\x1B\x61\x01KASIR NANO LITE\n================================\n\x1B\x61\x00';
-            
-            cart.forEach(item => {
-                let subtotal = item.price * item.qty;
-                commands += `${item.name}\n${item.qty} x ${item.price.toLocaleString('id-ID')} = Rp ${subtotal.toLocaleString('id-ID')}\n`;
-            });
-
-            commands += `--------------------------------\nTotal    : Rp ${total.toLocaleString('id-ID')}\nMetode   : ${metode}\n`;
-            if (metode === 'Cash') {
-                commands += `Bayar    : Rp ${bayar.toLocaleString('id-ID')}\nKembali  : Rp ${kembalian.toLocaleString('id-ID')}\n`;
-            }
-            commands += `================================\n\x1B\x61\x01Terima Kasih Telah Berbelanja!\n\n\n\x1D\x56\x41\x10`;
-
-            try {
-                await bluetoothCharacteristic.writeValue(encoder.encode(commands));
-            } catch (error) {
-                console.error("Gagal cetak struk:", error);
-            }
-        }
-
-        function renderSalesTable() {
-            const tbody = document.getElementById('salesTableBody');
-            if (salesHistory.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #888;">Belum ada transaksi tercatat.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = salesHistory.slice().reverse().map(trx => {
-                let itemsText = trx.items.map(i => `${i.name} (${i.qty}x)`).join(', ');
-                return `
-                    <tr>
-                        <td>${trx.date}</td>
-                        <td>${itemsText}</td>
-                        <td>${trx.method}</td>
-                        <td>Rp ${trx.total.toLocaleString('id-ID')}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function renderProfitReport() {
-            let totalOmzet = 0;
-            let totalHpp = 0;
-            let productSummary = {};
-
-            products.forEach(p => {
-                productSummary[p.id] = { name: p.name, qty: 0, revenue: 0, profit: 0 };
-            });
-
-            salesHistory.forEach(trx => {
-                trx.items.forEach(item => {
-                    let pInfo = products.find(p => p.id === item.id);
-                    let cost = pInfo ? pInfo.cost : (item.cost || 0);
-                    let revenue = item.price * item.qty;
-                    let profit = (item.price - cost) * item.qty;
-
-                    totalOmzet += revenue;
-                    totalHpp += (cost * item.qty);
-
-                    if(!productSummary[item.id]) {
-                        productSummary[item.id] = { name: item.name, qty: 0, revenue: 0, profit: 0 };
-                    }
-                    productSummary[item.id].qty += item.qty;
-                    productSummary[item.id].revenue += revenue;
-                    productSummary[item.id].profit += profit;
-                });
-            });
-
-            let totalLaba = totalOmzet - totalHpp;
-
-            document.getElementById('statOmzet').innerText = `Rp ${totalOmzet.toLocaleString('id-ID')}`;
-            document.getElementById('statHpp').innerText = `Rp ${totalHpp.toLocaleString('id-ID')}`;
-            document.getElementById('statLaba').innerText = `Rp ${totalLaba.toLocaleString('id-ID')}`;
-
-            const tbody = document.getElementById('profitTableBody');
-            tbody.innerHTML = Object.values(productSummary).map(prod => `
-                <tr>
-                    <td>${prod.name}</td>
-                    <td>${prod.qty}</td>
-                    <td>Rp ${prod.revenue.toLocaleString('id-ID')}</td>
-                    <td style="color: #28a745; font-weight: bold;">Rp ${prod.profit.toLocaleString('id-ID')}</td>
-                </tr>
-            `).join('');
-        }
-
-        renderProducts();
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir Nano Lite</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { display: flex; height: 100vh; background: #f4f6f9; color: #333; }
-        
-        .sidebar { width: 220px; background: #2c3e50; color: white; display: flex; flex-direction: column; padding: 20px 0; }
-        .sidebar h2 { font-size: 1.2rem; padding: 0 20px 20px 20px; border-bottom: 1px solid #34495e; text-align: center; color: #3498db; }
-        .nav-btn { background: none; border: none; color: #bdc3c7; padding: 15px 20px; text-align: left; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
+        .nav-btn { background: none; border: none; color: #bdc3c7; padding: 15px 20px; text-align: left; font-size: 0.95rem; cursor: pointer; transition: 0.2s; width: 100%; }
         .nav-btn:hover, .nav-btn.active { background: #34495e; color: white; border-left: 4px solid #3498db; }
 
         .content-area { flex: 2; display: flex; flex-direction: column; overflow: hidden; }
@@ -602,7 +57,6 @@
         .stat-card p { font-size: 1.3rem; font-weight: bold; color: #2c3e50; }
         .stat-card.profit p { color: #28a745; }
 
-        /* Modal Umum */
         .modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
         .modal-content { background: white; padding: 20px; border-radius: 8px; width: 300px; text-align: center; }
         .modal-content h3 { margin-bottom: 15px; }
@@ -612,16 +66,18 @@
         .btn-debit { background: #6c757d; color: white; }
         .btn-close { background: #dc3545; color: white; margin-top: 5px; }
 
-        /* Desain Kertas Struk Virtual */
         .receipt-box { background: #fff; padding: 15px; border: 1px dashed #aaa; text-align: left; font-family: monospace; font-size: 0.85rem; max-height: 250px; overflow-y: auto; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2>Kasir Nano Lite</h2>
+        <div class="sidebar-brand">
+            <img id="sidebarLogo" src="" alt="Logo Toko">
+            <h2 id="sidebarTitle">Kasir Nano Lite</h2>
+        </div>
         <button class="nav-btn active" onclick="switchPage('kasir', event)">Kasir Utama</button>
-        <button class="nav-btn" onclick="switchPage('produk', event)">Kelola Menu / Produk</button>
+        <button class="nav-btn" onclick="switchPage('produk', event)">Kelola Menu & Toko</button>
         <button class="nav-btn" onclick="switchPage('laporan', event)">Laporan Penjualan</button>
         <button class="nav-btn" onclick="switchPage('labarugi', event)">Laporan Laba / Rugi</button>
     </div>
@@ -629,7 +85,7 @@
     <!-- Kasir -->
     <div id="page-kasir" class="page active content-area" style="flex-direction: row; padding: 0;">
         <div style="flex: 2; padding: 20px; overflow-y: auto;">
-            <h2 style="margin-bottom: 15px; font-size: 1.2rem; color: #444;">Daftar Menu Kasir Nano Lite</h2>
+            <h2 id="storeHeaderTitle" style="margin-bottom: 15px; font-size: 1.2rem; color: #444;">Daftar Menu Kasir Nano Lite</h2>
             <div class="product-grid" id="productGrid"></div>
         </div>
 
@@ -651,9 +107,17 @@
         </div>
     </div>
 
-    <!-- Kelola Menu -->
+    <!-- Kelola Menu & Toko -->
     <div id="page-produk" class="page content-area" style="padding: 25px;">
-        <h2 style="margin-bottom: 15px; color: #333;">Kelola Menu & Harga Produk</h2>
+        <h2 style="margin-bottom: 15px; color: #333;">Pengaturan Toko & Informasi Nama Toko</h2>
+        <div class="form-box">
+            <h3 style="margin-bottom: 10px; font-size: 1rem; color: #2c3e50;">Identitas Toko</h3>
+            <div class="form-group"><label>Nama Toko</label><input type="text" id="storeNameInput" placeholder="Contoh: Kopi Senja Kita"></div>
+            <div class="form-group"><label>Upload Logo Toko (Gambar)</label><input type="file" id="storeLogoInput" accept="image/*"></div>
+            <button class="btn-save" onclick="saveStoreInfo()">Simpan Identitas Toko</button>
+        </div>
+
+        <h2 style="margin-bottom: 15px; color: #333; margin-top: 20px;">Kelola Menu & Harga Produk</h2>
         <div class="form-box">
             <h3 id="formTitle" style="margin-bottom: 10px; font-size: 1rem; color: #007bff;">Tambah Produk Baru</h3>
             <input type="hidden" id="editIndex" value="">
@@ -715,6 +179,7 @@
     </div>
 
     <script>
+        let storeInfo = JSON.parse(localStorage.getItem('kasno_store')) || { name: "Kasir Nano Lite", logo: "" };
         let products = JSON.parse(localStorage.getItem('kasno_products')) || [
             { id: 1, name: "Kopi Susu", price: 18000, cost: 10000 },
             { id: 2, name: "Es Teh Manis", price: 5000, cost: 2000 },
@@ -728,6 +193,47 @@
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
         let lastTransaction = null;
+
+        function applyStoreIdentity() {
+            document.getElementById('sidebarTitle').innerText = storeInfo.name;
+            document.getElementById('storeHeaderTitle').innerText = "Daftar Menu " + storeInfo.name;
+            document.getElementById('storeNameInput').value = storeInfo.name;
+
+            let logoImg = document.getElementById('sidebarLogo');
+            if (storeInfo.logo) {
+                logoImg.src = storeInfo.logo;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+        }
+
+        function saveStoreInfo() {
+            let name = document.getElementById('storeNameInput').value.trim();
+            let fileInput = document.getElementById('storeLogoInput');
+
+            if (!name) {
+                alert("Nama toko tidak boleh kosong!");
+                return;
+            }
+
+            storeInfo.name = name;
+
+            if (fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    storeInfo.logo = e.target.result;
+                    localStorage.setItem('kasno_store', JSON.stringify(storeInfo));
+                    applyStoreIdentity();
+                    alert("Identitas toko dan logo berhasil disimpan!");
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                localStorage.setItem('kasno_store', JSON.stringify(storeInfo));
+                applyStoreIdentity();
+                alert("Nama toko berhasil diperbarui!");
+            }
+        }
 
         function switchPage(pageId, event) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -945,7 +451,6 @@
             salesHistory.push(lastTransaction);
             localStorage.setItem('kasno_sales', JSON.stringify(salesHistory));
 
-            // Munculkan Struk Virtual di Layar
             tampilkanStrukVirtual(lastTransaction);
 
             cart = [];
@@ -953,7 +458,7 @@
         }
 
         function tampilkanStrukVirtual(trx) {
-            let html = `<b>KASIR NANO LITE</b><br>`;
+            let html = `<b>${storeInfo.name}</b><br>`;
             html += `--------------------------------<br>`;
             html += `Waktu: ${trx.date}<br>`;
             html += `Metode: ${trx.method}<br>`;
@@ -983,7 +488,7 @@
             if (!lastTransaction) return;
 
             let encoder = new TextEncoder();
-            let commands = '\x1B\x40\x1B\x61\x01KASIR NANO LITE\n================================\n\x1B\x61\x00';
+            let commands = `\x1B\x40\x1B\x61\x01${storeInfo.name}\n================================\n\x1B\x61\x00`;
             
             lastTransaction.items.forEach(item => {
                 let subtotal = item.price * item.qty;
@@ -1068,6 +573,7 @@
             `).join('');
         }
 
+        applyStoreIdentity();
         renderProducts();
     </script>
 </body>
